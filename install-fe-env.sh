@@ -29,7 +29,7 @@ if command_exists brew; then
   echo "brew 版本：$(brew --version)"
 else
   # 下载 Homebrew，并安装
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # 设置阿里源
   echo "# brew 阿里源 \n export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles" >> ~/.bash_profile
@@ -47,7 +47,7 @@ fi
 
 # 安装 oh-my-zsh
 if command_exists zsh; then
-  echo "ZSH 版本：$(zsh --version)"
+  echo "zsh 版本：$(zsh --version)"
 else
   sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
