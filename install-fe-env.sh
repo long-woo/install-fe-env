@@ -20,22 +20,34 @@ fi
 
 echo "系统：$os"
 
-function command_exists () {
+# 命令检查
+function command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# 安装 Homebrew
-if command_exists brew; then
-  echo "brew 版本：$(brew --version)"
-else
-  # 下载 Homebrew，并安装
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
+# Homebrew 设置为阿里源
+function brewConfig() {
   # 设置阿里源
   echo "# brew 阿里源 \n export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles" >> ~/.bash_profile
 
   # 修改后生效
   source ~/.bash_profile
+}
+
+# 安装 Homebrew
+if command_exists brew; then
+  echo "brew 版本：$(brew --version)"
+
+  # 如果没有设置 HOMEBREW_BOTTLE_DOMAIN 源
+  if [ -z "$HOMEBREW_BOTTLE_DOMAIN" ]; then
+    brewConfig
+  fi
+else
+  # 下载 Homebrew，并安装
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # 设置 Homebrew
+  brewConfig
 fi
 
 # 安装 Git
@@ -66,6 +78,13 @@ fi
 # 安装 nodejs
 if command_exists node; then
   echo "node 版本：$(node --version)"
+
+  npmRegistry=`npm config get registry`
+  if [ $npmRegistry != "https://registry.npm.taobao.org/" ]; then
+    echo 'ok'
+  else
+    echo 'fail'
+  fi
 else
   brew install node
 
