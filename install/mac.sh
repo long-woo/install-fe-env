@@ -1,40 +1,22 @@
-#!/usr/bin/env bash
-
-version="0.0.1"
-
-# 系统
-os=""
-# 下载路径
-downloadPath=~/Downloads/temp
-
-if [ "$(uname)" = "Darwin" ]; then
-  # Mac OS X 操作系统
-  os="Mac"
-elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then   
-  # GNU/Linux操作系统
-  os="Linux"
-elif [ "$(expr substr $(uname -s) 1 10)" = "MINGW32_NT" || "$(expr substr $(uname -s) 1 10)" = "MINGW64_NT" ]; then    
-  # Windows NT操作系统
-  os="Windows"
-fi
-
-echo "系统：$os"
-
 # 命令检查
 function command_exists() {
+  echo "检查 $1 命令..."
   command -v "$1" >/dev/null 2>&1
 }
 
 # Homebrew 设置为阿里源
 function brewConfig() {
+  echo "设置阿里源 \t ..."
   echo "# brew 阿里源 \n export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles" >> ~/.bash_profile
 
   # 修改后生效
   source ~/.bash_profile
+  echo "完成"
 }
 
 # 设置淘宝源
 function npmConfig() {
+  echo "设置淘宝源 \t ..."
   npm set registry https://registry.npm.taobao.org # 注册模块镜像
   npm set disturl https://npm.taobao.org/dist # node-gyp 编译依赖的 node 源码镜像
   npm set sass_binary_site https://npm.taobao.org/mirrors/node-sass # node-sass 二进制包镜像
@@ -47,6 +29,7 @@ function npmConfig() {
   npm set node_inspector_cdnurl https://npm.taobao.org/mirrors/node-inspector # node-inspector 二进制包镜像
   npm set canvas_binary_host_mirror=https://npm.taobao.org/mirrors/node-canvas-prebuilt # node-canvas 二进制包镜像
   npm cache verify # 清空缓存
+  echo "完成"
 }
 
 # 安装 Homebrew
@@ -119,4 +102,3 @@ if command_exists vue; then
 else
   npm install -g @vue/cli @vue/cli-init
 fi
-
