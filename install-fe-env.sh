@@ -46,6 +46,7 @@ function npmConfig() {
   npm set selenium_cdnurl https://npm.taobao.org/mirrors/selenium # selenium 二进制包镜像
   npm set node_inspector_cdnurl https://npm.taobao.org/mirrors/node-inspector # node-inspector 二进制包镜像
   npm set canvas_binary_host_mirror=https://npm.taobao.org/mirrors/node-canvas-prebuilt # node-canvas 二进制包镜像
+  npm set sentrycli_cdnurl https://npm.taobao.org/mirrors/sentry-cli # sentry cli 镜像
   npm cache verify # 清空缓存
 }
 
