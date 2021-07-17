@@ -6,7 +6,7 @@ $osVersion = (Get-CimInstance -class Win32_OperatingSystem).Version
 #  $mainVersion = $arrVersion[0] + '.' + $arrVersion[1]
 #  $lastVersion = $arrVersion[2]
 
-echo '当前 Windows 版本：'$osVersion
+echo 'Windows 版本：'$osVersion
 
 # 判断当前版本是否满足安装 winget
 #  If ($mainVersion -lt 10 -and $lastVersion -lt 1709) return
@@ -20,4 +20,19 @@ echo '当前 Windows 版本：'$osVersion
 # echo 'winget 安装中...'
 # $winget
 
-# 安装 Choco
+# 检查是否已经安装 Choco
+If (!(choco --version)) {
+  # 安装 Choco
+  $installDir = 'c:\ProgramData\chocoportable'
+  $env:ChocolateyInstall = "$InstallDir"
+
+  # 若 PowerShell 执行策略是限制性的，需要绕过策略安装
+  If (Get-ExecutionPolicy -eq 'Restricted') {
+    Set-ExecutionPolicy Bypass -Scope Process -Force
+  }
+
+  # 下载 Choco 安装脚本
+  iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+  echo 'Choco 版本：'choco --version
+}
+
