@@ -91,7 +91,7 @@ else
   echo "\n source ~/.bash_profile" >> ~/.zshrc
 fi
 
-# 安装 nodejs
+# 安装 Node.js
 if command_exists node; then
   echo "node 版本：$(node --version)"
 
