@@ -87,6 +87,10 @@ else
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
   echo "\n# zsh-syntax-highlighting 插件 \n source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 
+  # 安装 zsh 主题
+  git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+  ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
   # .bash_profile 添加到 zshrc
   echo "\n source ~/.bash_profile" >> ~/.zshrc
 fi
