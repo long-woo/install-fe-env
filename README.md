@@ -28,5 +28,5 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.We
 - [x] git
 - [x] zsh - Mac
 - [x] nodejs & npm
-- [x] yarn
+- [x] pnpm
 - [x] @vue/cli & @vue/cli-init

@@ -111,11 +111,11 @@ else
   npmConfig
 fi
 
-# 安装 yarn
+# 安装 pnpm
 if command_exists yarn; then
-  echo "yarn 版本：$(yarn --version)"
+  echo "pnpm 版本：$(pnpm --version)"
 else
-  npm install -g yarn
+  npm install -g pnpm
 fi
 
 # 安装 vue-cli

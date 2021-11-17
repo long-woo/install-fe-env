@@ -90,13 +90,13 @@ If ($npmRegistry -ne 'https://registry.npm.taobao.org/') {
   setNpmConfig
 }
 
-# 安装 Yarn
-If (!(checkCommand yarn)) {
-  '安装 Yarn...'
-  npm install -g yarn
-  'Yarn 已完成安装：'+ yarn --version
+# 安装 pnpm
+If (!(checkCommand pnpm)) {
+  '安装 PNPM...'
+  npm install -g pnpm
+  'PNPM 已完成安装：'+ pnpm --version
 } Else {
-  'Yarn 版本：'+ yarn --version
+  'PNPM 版本：'+ pnpm --version
 }
 
 # 安装 @vue/cli、@vue/cli-init
