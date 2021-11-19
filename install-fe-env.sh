@@ -27,6 +27,18 @@ function command_exists() {
 
 # Homebrew 设置为阿里源
 function brewConfig() {
+  # 修改 brew.git
+  cd "$(brew --repo)"
+  git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+  # 修改 homebrew-core.git
+  cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+  git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+  # 更新配置
+  brew update
+
+  # 修改 homebrew-bottles
   echo "# brew 阿里源 \n export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles" >> ~/.bash_profile
 
   # 修改后生效
@@ -87,9 +99,12 @@ else
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
   echo "\n# zsh-syntax-highlighting 插件 \n source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc
 
-  # 安装 zsh 主题
+  # 安装 zsh 的 spaceship 主题
   git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
   ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
+  # 设置 spaceship 主题
+  sed -n 's/ZSH_THEME="\(.*\)"/spaceship/p' ～/.zshrc
 
   # .bash_profile 添加到 zshrc
   echo "\n source ~/.bash_profile" >> ~/.zshrc
@@ -112,7 +127,7 @@ else
 fi
 
 # 安装 pnpm
-if command_exists yarn; then
+if command_exists pnpm; then
   echo "pnpm 版本：$(pnpm --version)"
 else
   npm install -g pnpm
